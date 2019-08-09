@@ -3,8 +3,8 @@ package com.mithril.finances.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mithril.finances.R
+import com.mithril.finances.models.Transacao
 import com.mithril.finances.ui.adapters.ListaTrasacoesAdapter
-import com.mithril.finances.ui.models.Transacao
 import kotlinx.android.synthetic.main.activity_lista_transacoes.*
 import java.math.BigDecimal
 import java.util.*

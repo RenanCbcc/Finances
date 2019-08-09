@@ -1,4 +1,4 @@
-package com.mithril.finances.ui.models
+package com.mithril.finances.models
 
 import java.math.BigDecimal
 import java.util.Calendar
