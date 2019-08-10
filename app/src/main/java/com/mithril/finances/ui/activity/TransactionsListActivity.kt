@@ -1,10 +1,13 @@
 package com.mithril.finances.ui.activity
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mithril.finances.R
 import com.mithril.finances.models.Tipo
 import com.mithril.finances.models.Transacao
+import com.mithril.finances.ui.ResumoView
 import com.mithril.finances.ui.adapters.ListaTrasacoesAdapter
 import kotlinx.android.synthetic.main.activity_lista_transacoes.*
 import java.math.BigDecimal
@@ -16,8 +19,19 @@ class TransactionsListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_lista_transacoes)
         val transacoes: List<Transacao> = transacoesDeExemplo()
 
+        configuraResumo(transacoes)
         lista_transacoes_listview.adapter = ListaTrasacoesAdapter(transacoes, this)
     }
+
+    private fun configuraResumo(transacoes: List<Transacao>) {
+        //var textView = findViewById<TextView>(R.id.resumo_card_receita)
+        var view: View = window.decorView
+        var resumoView = ResumoView(transacoes, view)
+        resumoView.adicionaDespesa()
+        resumoView.adicionaReceita()
+        resumoView.adicionaTotal()
+    }
+
 
     private fun transacoesDeExemplo(): List<Transacao> {
         return listOf(
