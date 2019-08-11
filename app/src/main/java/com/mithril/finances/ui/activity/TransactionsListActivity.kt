@@ -25,10 +25,8 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun configuraResumo(transacoes: List<Transacao>) {
         //var textView = findViewById<TextView>(R.id.resumo_card_receita)
         var view: View = window.decorView
-        var resumoView = ResumoView(transacoes, view,)
-        resumoView.adicionaDespesa()
-        resumoView.adicionaReceita()
-        resumoView.adicionaTotal()
+        var resumoView = ResumoView(transacoes, view, this)
+        resumoView.atualiza()
     }
 
 
