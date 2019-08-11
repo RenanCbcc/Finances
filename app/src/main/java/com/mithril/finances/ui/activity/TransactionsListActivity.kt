@@ -2,7 +2,6 @@ package com.mithril.finances.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mithril.finances.R
 import com.mithril.finances.models.Tipo
@@ -26,7 +25,7 @@ class TransactionsListActivity : AppCompatActivity() {
     private fun configuraResumo(transacoes: List<Transacao>) {
         //var textView = findViewById<TextView>(R.id.resumo_card_receita)
         var view: View = window.decorView
-        var resumoView = ResumoView(transacoes, view)
+        var resumoView = ResumoView(transacoes, view,)
         resumoView.adicionaDespesa()
         resumoView.adicionaReceita()
         resumoView.adicionaTotal()
