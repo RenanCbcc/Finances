@@ -51,7 +51,7 @@
                 fab:fab_colorNormal="@color/receita"
                 fab:fab_colorPressed="#2945fc"
                 fab:fab_colorRipple="#3216e2"
-                fab:fab_label="@string/adiciona_receita"
+                fab:fab_label="@string/adicionar_receita"
                 fab:fab_size="mini"/>
 
         <com.github.clans.fab.FloatingActionButton
@@ -62,7 +62,7 @@
                 fab:fab_colorNormal="@color/despesa"
                 fab:fab_colorPressed="#E8004A"
                 fab:fab_colorRipple="#C20024"
-                fab:fab_label="@string/adiciona_despesa"
+                fab:fab_label="@string/adicionar_despesa"
                 fab:fab_size="mini"/>
 
     </com.github.clans.fab.FloatingActionMenu>
