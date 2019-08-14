@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.mithril.finances.R
 import com.mithril.finances.delegate.TransacaoDelegate
+import com.mithril.finances.models.Tipo
 import com.mithril.finances.models.Transacao
 import com.mithril.finances.ui.ResumoView
 import com.mithril.finances.ui.adapters.ListaTrasacoesAdapter
@@ -22,16 +23,29 @@ class TransactionsListActivity : AppCompatActivity() {
 
         configuraResumo()
         configuraLista()
+        configuraFAB()
+    }
+
+    private fun configuraFAB() {
         lista_transacoes_adiciona_receita
             .setOnClickListener {
-                AdicionaTransacaoDialog(window.decorView as ViewGroup, this)
-                    .configuraDialog(object :TransacaoDelegate{
-                        override fun delegate(transacao: Transacao) {
-                            atualizaTransacoes(transacao)
-                            lista_transacoes_adiciona_menu.close(true)
-                        }
-                    })
+                chamaDialogDeAdicao(Tipo.RECEITA)
             }
+
+        lista_transacoes_adiciona_despesa
+            .setOnClickListener {
+                chamaDialogDeAdicao(Tipo.DESPESA)
+            }
+    }
+
+    private fun chamaDialogDeAdicao(tipo: Tipo) {
+        AdicionaTransacaoDialog(window.decorView as ViewGroup, this)
+            .configuraDialog(tipo, object : TransacaoDelegate {
+                override fun delegate(transacao: Transacao) {
+                    atualizaTransacoes(transacao)
+                    lista_transacoes_adiciona_menu.close(true)
+                }
+            })
     }
 
 
