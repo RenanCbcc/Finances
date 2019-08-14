@@ -11,6 +11,7 @@ import com.mithril.finances.models.Transacao
 import com.mithril.finances.ui.ResumoView
 import com.mithril.finances.ui.adapters.ListaTrasacoesAdapter
 import com.mithril.finances.ui.dialog.AdicionaTransacaoDialog
+import com.mithril.finances.ui.dialog.AlteraTransacaoDialog
 import kotlinx.android.synthetic.main.activity_lista_transacoes.*
 
 class TransactionsListActivity : AppCompatActivity() {
@@ -40,23 +41,34 @@ class TransactionsListActivity : AppCompatActivity() {
 
     private fun chamaDialogDeAdicao(tipo: Tipo) {
         AdicionaTransacaoDialog(window.decorView as ViewGroup, this)
-            .configuraDialog(tipo, object : TransacaoDelegate {
+            .chama(tipo, object : TransacaoDelegate {
                 override fun delegate(transacao: Transacao) {
-                    atualizaTransacoes(transacao)
+                    transacoes.add(transacao)
+                    atualizaTransacoes()
                     lista_transacoes_adiciona_menu.close(true)
                 }
             })
     }
 
 
-    private fun atualizaTransacoes(transacao: Transacao) {
-        transacoes.add(transacao)
+    private fun atualizaTransacoes() {
         configuraLista()
         configuraResumo()
     }
 
     private fun configuraLista() {
         lista_transacoes_listview.adapter = ListaTrasacoesAdapter(transacoes, this)
+        lista_transacoes_listview.setOnItemClickListener { parent, view, posicao, id ->
+            val transacao = transacoes[posicao]
+            AlteraTransacaoDialog(window.decorView as ViewGroup, this)
+                .chama(transacao, object : TransacaoDelegate {
+                    override fun delegate(transacao: Transacao) {
+                        transacoes[posicao] = transacao
+                        atualizaTransacoes()
+                    }
+                })
+
+        }
     }
 
     private fun configuraResumo() {
