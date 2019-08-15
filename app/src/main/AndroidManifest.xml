@@ -8,7 +8,7 @@
                  android:supportsRtl="true"
                  android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.activity.TransactionsListActivity">
+        <activity android:name=".ui.activity.ListaTransacoesActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
                 <action android:name="android.intent.action.MAIN"/>
