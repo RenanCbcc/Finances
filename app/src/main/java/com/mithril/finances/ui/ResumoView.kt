@@ -10,7 +10,7 @@ import com.mithril.finances.models.Transacao
 import kotlinx.android.synthetic.main.resumo_card.view.*
 import java.math.BigDecimal
 
-class ResumoView(transacoes: List<Transacao>, private val view: View?, context: Context) {
+class ResumoView(transacoes: List<Transacao>, private val view: View, context: Context) {
 
     private val resumo = Resumo(transacoes)
 
@@ -25,34 +25,31 @@ class ResumoView(transacoes: List<Transacao>, private val view: View?, context: 
 
     private fun adicionaReceita() {
         val totalReceita = resumo.receita
-        if (view != null) {
-            with(view.resumo_card_receita) {
-                setTextColor(corRecita)
-                text = totalReceita.formataParaBrasileiro()
-            }
+        with(view.resumo_card_receita) {
+            setTextColor(corRecita)
+            text = totalReceita.formataParaBrasileiro()
         }
+
     }
 
 
     private fun adicionaDespesa() {
         val totalDespesa = resumo.despesa
-        if (view != null) {
-            with(view.resumo_card_despesa) {
-                setTextColor(corDespesa)
-                text = totalDespesa.formataParaBrasileiro()
-            }
+        with(view.resumo_card_despesa) {
+            setTextColor(corDespesa)
+            text = totalDespesa.formataParaBrasileiro()
         }
+
     }
 
     private fun adicionaTotal() {
         val total = resumo.total
         val cor = corPor(total)
-        if (view != null) {
-            with(view.resumo_card_total) {
-                setTextColor(cor)
-                text = total.formataParaBrasileiro()
-            }
+        with(view.resumo_card_total) {
+            setTextColor(cor)
+            text = total.formataParaBrasileiro()
         }
+
     }
 
     private fun corPor(valor: BigDecimal): Int {
