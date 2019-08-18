@@ -1,8 +1,11 @@
 package com.mithril.finances.ui.activity
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import com.mithril.finances.R
 import com.mithril.finances.delegate.TransacaoDelegate
@@ -55,27 +58,38 @@ class ListaTransacoesActivity : AppCompatActivity() {
                 chamaDialogDeAlteracao(transacao, posicao)
 
             }
+            setOnCreateContextMenuListener { menu, _, _ ->
+                menu.add(Menu.NONE, 1, Menu.NONE, "Remover")
+            }
         }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == 1) {
+            val adapterMenuInfo = item.menuInfo as AdapterView.AdapterContextMenuInfo
+            val position = adapterMenuInfo.position
+            transacoes.removeAt(position)
+            atualizaTransacoes()
+        }
+        return super.onContextItemSelected(item)
+
     }
 
     private fun chamaDialogDeAlteracao(transacao: Transacao, posicao: Int) {
         AlteraTransacaoDialog(viewDaActivity, this)
-            .chama(transacao, object : TransacaoDelegate {
-                override fun delegate(transacao: Transacao) {
-                    transacoes[posicao] = transacao
-                    atualizaTransacoes()
-                }
+            .chama(transacao, TransacaoDelegate { transacao ->
+                transacoes[posicao] = transacao
+                atualizaTransacoes()
             })
     }
 
     private fun chamaDialogDeAdicao(tipo: Tipo) {
         AdicionaTransacaoDialog(viewDaActivity, this)
-            .chama(tipo, object : TransacaoDelegate {
-                override fun delegate(transacao: Transacao) {
-                    transacoes.add(transacao)
-                    atualizaTransacoes()
-                    lista_transacoes_adiciona_menu.close(true)
-                }
+            .chama(tipo, TransacaoDelegate { transacao ->
+                transacoes.add(transacao)
+                atualizaTransacoes()
+                lista_transacoes_adiciona_menu.close(true)
+
             })
     }
 
